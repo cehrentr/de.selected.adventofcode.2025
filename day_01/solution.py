@@ -143,15 +143,16 @@ def solve_puzzle_2(input_data: list) -> int:
     for item in input_data:
         steps = int(item[1:])
 
-        if item.startswith("R"):
-            total_steps = (position + steps)
-            result += total_steps % safe_numbers
-        else:
-            total_steps = (position - steps) % safe_numbers
-            result += total_steps % safe_numbers
-
         if item.startswith("L"):
+            if position == 0:
+                total_steps = abs(position - steps)
+            else:
+                total_steps = abs(position - steps - safe_numbers)
+            result += total_steps // safe_numbers
             steps = -steps
+        else:
+            total_steps = (position + steps)
+            result += total_steps // safe_numbers
 
         position = (position + steps) % safe_numbers
 
