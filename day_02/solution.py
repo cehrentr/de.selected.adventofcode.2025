@@ -1,4 +1,5 @@
 import argparse
+from utils import get_input_file
 
 
 """
@@ -10,25 +11,6 @@ access the lobby through here, and from there you can access the rest of the Nor
 As you make your way through the surprisingly extensive selection, one of the clerks recognizes you and asks for 
 your help.
 """
-
-def get_input_file(filenamen: str) -> list:
-    """
-    Reads all lines from a file and returns them as a list of strings.
-
-    This function opens a file specified by the input filename in read mode,
-    reads all lines from it, and returns those lines as a list of strings in
-    the order they appear in the file.
-
-    :param filenamen: The path to the file to read.
-    :type filenamen: str
-    :return: A list of strings, where each string is a line from the file.
-    :rtype: list
-    """
-    with open(file=filenamen, mode="r") as file:
-        result = file.read()
-
-    return [item.split("-") for item in result.split(",")]
-
 
 def solve_puzzle_1(input_data: list) -> int:
     """
@@ -163,10 +145,13 @@ def main(puzzle: int, input_file: str):
     :param input_file:
     :return:
     """
+    input_data = get_input_file(filename=input_file)
+    input_data = [item.split("-") for item in input_data.split(",")]
+
     if puzzle == 1:
-        solution = solve_puzzle_1(get_input_file(filenamen=input_file))
+        solution = solve_puzzle_1(input_data)
     else:
-        solution = solve_puzzle_2(get_input_file(filenamen=input_file))
+        solution = solve_puzzle_2(input_data)
 
     print(f"Solution for puzzle {puzzle}: {solution}")
 

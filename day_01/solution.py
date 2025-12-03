@@ -1,5 +1,5 @@
 import argparse
-from itertools import cycle
+from utils import get_input_file
 
 
 """
@@ -19,25 +19,6 @@ To save Christmas, the Elves need you to finish decorating the North Pole by Dec
 Collect stars by solving puzzles. Two puzzles will be made available on each day; the second puzzle is unlocked when
 you complete the first. Each puzzle grants one star. Good luck!
 """
-
-def get_input_file(filenamen: str) -> list:
-    """
-    Reads all lines from a file and returns them as a list of strings.
-
-    This function opens a file specified by the input filename in read mode,
-    reads all lines from it, and returns those lines as a list of strings in
-    the order they appear in the file.
-
-    :param filenamen: The path to the file to read.
-    :type filenamen: str
-    :return: A list of strings, where each string is a line from the file.
-    :rtype: list
-    """
-    with open(file=filenamen, mode="r") as file:
-        result = file.readlines()
-
-    return result
-
 
 def solve_puzzle_1(input_data: list) -> int:
     """
@@ -166,10 +147,12 @@ def main(puzzle: int, input_file: str):
     :param input_file:
     :return:
     """
+    input_data = get_input_file(filenamen=input_file).splitlines()
+
     if puzzle == 1:
-        solution = solve_puzzle_1(get_input_file(filenamen=input_file))
+        solution = solve_puzzle_1(input_data)
     else:
-        solution = solve_puzzle_2(get_input_file(filenamen=input_file))
+        solution = solve_puzzle_2(input_data)
 
     print(f"Solution for puzzle {puzzle}: {solution}")
 
